@@ -1,0 +1,7 @@
+{
+  "name": "Kupola - Gestão para Barbearias",
+  "description": "Painel de controle e gestão para barbearias com métricas em tempo real, faturamento, serviços e produtos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
