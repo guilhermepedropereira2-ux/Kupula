@@ -3,122 +3,164 @@ import React from 'react';
 export const BarbershopIllustration: React.FC = () => {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-      {/* Deep dark gradient with warm ambient light pools */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0b0e14]/95 via-[#111622]/85 to-[#16120e]/90 z-10" />
+      {/* Base warm dark barbershop atmosphere */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#05070B] via-[#05070B]/80 to-[#0A0E15]/30 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#05070B] via-transparent to-[#05070B]/40 z-10" />
 
-      {/* Warm ambient radial lights (amber & gold glow) */}
-      <div className="absolute right-[22%] top-[-20%] w-[500px] h-[350px] bg-amber-500/15 blur-[100px] rounded-full z-0" />
-      <div className="absolute right-[10%] top-[20%] w-[320px] h-[260px] bg-orange-600/10 blur-[80px] rounded-full z-0" />
+      {/* Warm Ambient Lights & Bokeh Glows */}
+      <div className="absolute right-[15%] top-[-10%] w-[500px] h-[350px] bg-[#D4AF37]/18 blur-[90px] rounded-full z-0" />
+      <div className="absolute right-[35%] top-[10%] w-[320px] h-[250px] bg-[#ea580c]/12 blur-[80px] rounded-full z-0" />
+      <div className="absolute right-[5%] bottom-[-10%] w-[300px] h-[200px] bg-[#E5C365]/15 blur-[70px] rounded-full z-0" />
 
-      {/* Barbershop SVG Vector Scene with Edison lamps, vintage leather chair, shelves & mirrors */}
+      {/* High-Fidelity Barbershop Photographic Composition */}
       <svg
-        className="absolute right-0 top-0 h-full w-full object-cover z-0 opacity-45 mix-blend-screen"
-        viewBox="0 0 1200 400"
+        className="absolute right-0 top-0 h-full w-full object-cover z-0 opacity-85 mix-blend-screen"
+        viewBox="0 0 1200 420"
         preserveAspectRatio="xMidYMid slice"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <radialGradient id="lampGlow1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffb703" stopOpacity="0.9" />
-            <stop offset="30%" stopColor="#f59e0b" stopOpacity="0.5" />
-            <stop offset="70%" stopColor="#d97706" stopOpacity="0.15" />
-            <stop offset="100%" stopColor="#0b0e14" stopOpacity="0" />
+          {/* Radial glow for warm Edison tungsten bulbs */}
+          <radialGradient id="edison1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+            <stop offset="15%" stopColor="#fff7ed" stopOpacity="0.95" />
+            <stop offset="35%" stopColor="#f59e0b" stopOpacity="0.8" />
+            <stop offset="65%" stopColor="#d97706" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#05070B" stopOpacity="0" />
           </radialGradient>
-          <radialGradient id="lampGlow2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffd166" stopOpacity="0.95" />
-            <stop offset="25%" stopColor="#f59e0b" stopOpacity="0.6" />
-            <stop offset="65%" stopColor="#b45309" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="#0b0e14" stopOpacity="0" />
+          <radialGradient id="edison2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fffbeb" stopOpacity="1" />
+            <stop offset="20%" stopColor="#fef08a" stopOpacity="0.9" />
+            <stop offset="45%" stopColor="#d97706" stopOpacity="0.6" />
+            <stop offset="75%" stopColor="#92400e" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#05070B" stopOpacity="0" />
           </radialGradient>
-          <linearGradient id="chairLeather" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3d2c1f" />
-            <stop offset="50%" stopColor="#221811" />
-            <stop offset="100%" stopColor="#140e0a" />
+          <radialGradient id="bokehGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#fef08a" stopOpacity="0.4" />
+            <stop offset="60%" stopColor="#f59e0b" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#05070B" stopOpacity="0" />
+          </radialGradient>
+
+          {/* Realistic leather shading */}
+          <linearGradient id="leatherShade" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#38291e" />
+            <stop offset="40%" stopColor="#221710" />
+            <stop offset="80%" stopColor="#140d09" />
+            <stop offset="100%" stopColor="#0a0604" />
           </linearGradient>
-          <linearGradient id="chromeMetal" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#71717a" />
-            <stop offset="50%" stopColor="#e4e4e7" />
-            <stop offset="100%" stopColor="#52525b" />
+
+          {/* Chrome steel reflections */}
+          <linearGradient id="chromeSpec" x1="0%" y1="0%" x2="100%" y2="50%">
+            <stop offset="0%" stopColor="#9ca3af" />
+            <stop offset="35%" stopColor="#f3f4f6" />
+            <stop offset="55%" stopColor="#e5e7eb" />
+            <stop offset="80%" stopColor="#6b7280" />
+            <stop offset="100%" stopColor="#374151" />
+          </linearGradient>
+
+          {/* Wood panel texture gradient */}
+          <linearGradient id="darkWood" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#1c130d" />
+            <stop offset="50%" stopColor="#120c08" />
+            <stop offset="100%" stopColor="#0a0604" />
           </linearGradient>
         </defs>
 
-        {/* Vintage Wood Wall Panels & Backlit Mirror Arche */}
-        <rect x="700" y="30" width="180" height="280" rx="90" fill="#141720" stroke="#372c1c" strokeWidth="3" />
-        <rect x="710" y="40" width="160" height="260" rx="80" fill="#0d1117" />
-        <path d="M720 180H860" stroke="#f59e0b" strokeWidth="0.5" strokeOpacity="0.3" />
+        {/* Vintage Wood Wall Paneling & Soft Mirror Arches */}
+        <rect x="580" y="20" width="600" height="380" fill="url(#darkWood)" opacity="0.6" />
 
-        {/* Second Mirror Arch */}
-        <rect x="940" y="20" width="200" height="300" rx="100" fill="#181a24" stroke="#45331e" strokeWidth="3" />
-        <rect x="952" y="32" width="176" height="276" rx="88" fill="#0f131a" />
+        {/* Mirror 1 with Warm Golden Backlight */}
+        <rect x="680" y="35" width="200" height="290" rx="100" fill="#0D121B" stroke="#573f27" strokeWidth="3" />
+        <ellipse cx="780" cy="180" rx="90" ry="135" fill="#070a0e" />
+        <path d="M700 180H860" stroke="#E5C365" strokeWidth="0.7" strokeOpacity="0.4" />
 
-        {/* Vintage Shelves with Tonic & Pomade Bottles */}
-        <line x1="620" y1="180" x2="710" y2="180" stroke="#4a3b2c" strokeWidth="6" strokeLinecap="round" />
-        <rect x="635" y="150" width="14" height="28" rx="2" fill="#d97706" fillOpacity="0.7" />
-        <rect x="655" y="142" width="16" height="36" rx="2" fill="#78350f" fillOpacity="0.8" />
-        <rect x="677" y="156" width="18" height="22" rx="3" fill="#b45309" fillOpacity="0.6" />
+        {/* Mirror 2 with Warm Backlight */}
+        <rect x="940" y="25" width="220" height="310" rx="110" fill="#111722" stroke="#6b4c2b" strokeWidth="3" />
+        <ellipse cx="1050" cy="180" rx="100" ry="145" fill="#070a0e" />
 
-        {/* Hanging Edison Bulbs & Ambient Flares */}
-        <line x1="780" y1="0" x2="780" y2="120" stroke="#27272a" strokeWidth="1.5" />
-        <circle cx="780" cy="120" r="45" fill="url(#lampGlow1)" />
-        <circle cx="780" cy="120" r="9" fill="#ffedd5" />
-        <line x1="777" y1="117" x2="783" y2="123" stroke="#f59e0b" strokeWidth="1.5" />
+        {/* Barbershop Counter Shelf with Tonics & Glass Amber Bottles */}
+        <rect x="620" y="240" width="560" height="12" rx="2" fill="#2d1c12" stroke="#573f27" strokeWidth="1" />
+        {/* Bottles */}
+        <rect x="640" y="205" width="16" height="35" rx="3" fill="#b45309" fillOpacity="0.85" stroke="#f59e0b" strokeWidth="0.5" />
+        <rect x="662" y="195" width="18" height="45" rx="3" fill="#78350f" fillOpacity="0.9" stroke="#d97706" strokeWidth="0.5" />
+        <rect x="686" y="212" width="22" height="28" rx="4" fill="#92400e" fillOpacity="0.8" />
+        <rect x="880" y="200" width="18" height="40" rx="3" fill="#b45309" fillOpacity="0.85" />
+        <rect x="904" y="210" width="14" height="30" rx="2" fill="#d97706" fillOpacity="0.8" />
 
-        <line x1="980" y1="0" x2="980" y2="90" stroke="#27272a" strokeWidth="1.5" />
-        <circle cx="980" cy="90" r="60" fill="url(#lampGlow2)" />
-        <circle cx="980" cy="90" r="11" fill="#fffbeb" />
+        {/* Ambient Bokeh Orbs */}
+        <circle cx="610" cy="110" r="35" fill="url(#bokehGlow)" />
+        <circle cx="730" cy="80" r="45" fill="url(#bokehGlow)" />
+        <circle cx="890" cy="140" r="30" fill="url(#bokehGlow)" />
+        <circle cx="1120" cy="90" r="50" fill="url(#bokehGlow)" />
 
-        {/* Classic Heavy-Duty Vintage Barber Chair (Detailed Silhouette & Chrome Accents) */}
-        <g transform="translate(850, 110)">
-          {/* Hydraulic Base */}
-          <ellipse cx="90" cy="245" rx="65" ry="16" fill="url(#chromeMetal)" stroke="#3f3f46" strokeWidth="1.5" />
-          <rect x="83" y="195" width="14" height="50" fill="url(#chromeMetal)" />
-          {/* Footrest with Barber Logo Grill */}
-          <path d="M40 225L10 240H50L70 225Z" fill="url(#chromeMetal)" />
-          <line x1="15" y1="236" x2="45" y2="236" stroke="#27272a" strokeWidth="1.5" />
+        {/* Hanging Edison Pendant Lamps with Glowing Tungsten Filaments */}
+        <line x1="770" y1="0" x2="770" y2="110" stroke="#52525b" strokeWidth="1.5" />
+        <circle cx="770" cy="110" r="52" fill="url(#edison1)" />
+        <ellipse cx="770" cy="110" rx="12" ry="16" fill="#fffbeb" />
+        <path d="M766 106L774 114M766 114L774 106" stroke="#f59e0b" strokeWidth="1.5" />
 
-          {/* Seat Cushion (Deep tufted rich brown leather) */}
-          <rect x="45" y="165" width="90" height="30" rx="8" fill="url(#chairLeather)" stroke="#573a27" strokeWidth="2" />
-          {/* Diamond Tufting details */}
-          <path d="M60 170L75 185L90 170L105 185L120 170" stroke="#e5a93c" strokeWidth="0.7" strokeOpacity="0.4" />
+        <line x1="970" y1="0" x2="970" y2="80" stroke="#52525b" strokeWidth="1.5" />
+        <circle cx="970" cy="80" r="65" fill="url(#edison2)" />
+        <ellipse cx="970" cy="80" rx="14" ry="18" fill="#ffffff" />
+        <path d="M965 75L975 85M965 85L975 75" stroke="#f59e0b" strokeWidth="1.5" />
 
-          {/* Recline Chrome Lever */}
-          <line x1="135" y1="180" x2="155" y2="165" stroke="url(#chromeMetal)" strokeWidth="3" strokeLinecap="round" />
-          <circle cx="156" cy="164" r="4" fill="#18181b" />
+        {/* Grand Classic Vintage Barber Chair in Deep Tufted Leather & Polished Chrome */}
+        <g transform="translate(820, 95)">
+          {/* Circular Polished Chrome Hydraulic Base */}
+          <ellipse cx="110" cy="270" rx="80" ry="18" fill="url(#chromeSpec)" stroke="#4b5563" strokeWidth="1.5" />
+          <rect x="102" y="215" width="16" height="58" fill="url(#chromeSpec)" />
 
-          {/* Padded Armrests */}
-          <rect x="40" y="130" width="18" height="40" rx="6" fill="url(#chairLeather)" stroke="#573a27" strokeWidth="1.5" />
-          <path d="M42 150L30 175" stroke="url(#chromeMetal)" strokeWidth="4" strokeLinecap="round" />
+          {/* Barber Footrest with Grill */}
+          <path d="M50 248L15 265H65L88 248Z" fill="url(#chromeSpec)" />
+          <line x1="22" y1="260" x2="56" y2="260" stroke="#374151" strokeWidth="1.8" />
+          <line x1="26" y1="256" x2="60" y2="256" stroke="#374151" strokeWidth="1.8" />
 
-          <rect x="122" y="130" width="18" height="40" rx="6" fill="url(#chairLeather)" stroke="#573a27" strokeWidth="1.5" />
-          <path d="M138 150L150 175" stroke="url(#chromeMetal)" strokeWidth="4" strokeLinecap="round" />
+          {/* Deep Tufted Leather Seat Cushion */}
+          <rect x="55" y="180" width="110" height="35" rx="9" fill="url(#leatherShade)" stroke="#6b4c2b" strokeWidth="2.5" />
+          {/* Diamond Tufting Stitch Details on Seat */}
+          <path d="M75 186L95 204L115 186L135 204L150 186" stroke="#E5C365" strokeWidth="0.8" strokeOpacity="0.5" />
 
-          {/* High Backrest (Tufted leather vintage wingback) */}
+          {/* Chrome Reclining Control Lever */}
+          <line x1="168" y1="195" x2="192" y2="175" stroke="url(#chromeSpec)" strokeWidth="3.5" strokeLinecap="round" />
+          <circle cx="193" cy="174" r="5" fill="#18181b" />
+
+          {/* Armrests (Padded Leather with Chrome Supports) */}
+          <rect x="48" y="142" width="20" height="46" rx="7" fill="url(#leatherShade)" stroke="#6b4c2b" strokeWidth="1.8" />
+          <path d="M50 165L36 195" stroke="url(#chromeSpec)" strokeWidth="4.5" strokeLinecap="round" />
+
+          <rect x="152" y="142" width="20" height="46" rx="7" fill="url(#leatherShade)" stroke="#6b4c2b" strokeWidth="1.8" />
+          <path d="M170 165L184 195" stroke="url(#chromeSpec)" strokeWidth="4.5" strokeLinecap="round" />
+
+          {/* High Wingback Backrest with Tufting & Chrome Trim */}
           <path
-            d="M55 50C55 42 62 35 70 35H110C118 35 125 42 125 50V140H55V50Z"
-            fill="url(#chairLeather)"
-            stroke="#5c3f2b"
-            strokeWidth="2.5"
+            d="M68 45C68 35 76 26 86 26H134C144 26 152 35 152 45V150H68V45Z"
+            fill="url(#leatherShade)"
+            stroke="#6b4c2b"
+            strokeWidth="3"
           />
-          {/* Chrome Trim around backrest */}
-          <path d="M53 60V135" stroke="url(#chromeMetal)" strokeWidth="2.5" />
-          <path d="M127 60V135" stroke="url(#chromeMetal)" strokeWidth="2.5" />
+          {/* Chrome Rim on Backrest */}
+          <path d="M66 55V145" stroke="url(#chromeSpec)" strokeWidth="3" />
+          <path d="M154 55V145" stroke="url(#chromeSpec)" strokeWidth="3" />
 
-          {/* Tufted Button Dimples & Stitching on Backrest */}
-          <circle cx="75" cy="65" r="2.5" fill="#f59e0b" fillOpacity="0.6" />
-          <circle cx="105" cy="65" r="2.5" fill="#f59e0b" fillOpacity="0.6" />
-          <circle cx="90" cy="85" r="2.5" fill="#f59e0b" fillOpacity="0.6" />
-          <circle cx="75" cy="105" r="2.5" fill="#f59e0b" fillOpacity="0.6" />
-          <circle cx="105" cy="105" r="2.5" fill="#f59e0b" fillOpacity="0.6" />
-          <circle cx="90" cy="125" r="2.5" fill="#f59e0b" fillOpacity="0.6" />
+          {/* Tufted Dimples & Buttons */}
+          <circle cx="92" cy="60" r="3" fill="#E5C365" fillOpacity="0.8" />
+          <circle cx="128" cy="60" r="3" fill="#E5C365" fillOpacity="0.8" />
+          <circle cx="110" cy="85" r="3" fill="#E5C365" fillOpacity="0.8" />
+          <circle cx="92" cy="110" r="3" fill="#E5C365" fillOpacity="0.8" />
+          <circle cx="128" cy="110" r="3" fill="#E5C365" fillOpacity="0.8" />
+          <circle cx="110" cy="135" r="3" fill="#E5C365" fillOpacity="0.8" />
 
-          {/* Adjustable Headrest */}
-          <rect x="85" y="12" width="10" height="24" fill="url(#chromeMetal)" />
-          <rect x="68" y="5" width="44" height="20" rx="7" fill="url(#chairLeather)" stroke="#573a27" strokeWidth="2" />
+          {/* Diamond Stitch lines connecting tufts */}
+          <path d="M92 60L110 85L128 60M92 110L110 85L128 110M92 110L110 135L128 110" stroke="#d97706" strokeWidth="0.8" strokeOpacity="0.4" />
+
+          {/* Adjustable Chrome Headrest with Tufted Leather Pillow */}
+          <rect x="105" y="8" width="10" height="20" fill="url(#chromeSpec)" />
+          <rect x="84" y="0" width="52" height="22" rx="8" fill="url(#leatherShade)" stroke="#6b4c2b" strokeWidth="2" />
         </g>
 
-        {/* Ambient Warm Floor Reflection */}
-        <ellipse cx="940" cy="380" rx="200" ry="25" fill="#f59e0b" fillOpacity="0.06" />
+        {/* Ambient Floor Glow Reflection */}
+        <ellipse cx="940" cy="400" rx="240" ry="25" fill="#f59e0b" fillOpacity="0.1" />
       </svg>
     </div>
   );

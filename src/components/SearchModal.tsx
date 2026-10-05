@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, User, Scissors, Package, Calendar } from 'lucide-react';
+import { Search, X, User, Scissors, Package } from 'lucide-react';
 import { TOP_SERVICES, TOP_PRODUCTS } from '../data/mockData';
 
 interface Props {
@@ -17,10 +17,6 @@ export const SearchModal: React.FC<Props> = ({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        // handled in parent or toggle
-      }
       if (e.key === 'Escape' && isOpen) {
         onClose();
       }
@@ -56,10 +52,10 @@ export const SearchModal: React.FC<Props> = ({
         onClick={onClose}
       />
 
-      <div className="relative w-full max-w-xl bg-[#121622] border border-[#263145] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-xl bg-[#0D121B] border border-[#161e2c] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Search Input Field */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#1e2535]">
-          <Search className="w-5 h-5 text-amber-400 shrink-0" />
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#161e2c]">
+          <Search className="w-5 h-5 text-[#E5C365] shrink-0" />
           <input
             type="text"
             autoFocus
@@ -76,7 +72,7 @@ export const SearchModal: React.FC<Props> = ({
               <X className="w-4 h-4" />
             </button>
           )}
-          <kbd className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+          <kbd className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#0A0E15] text-slate-400 border border-slate-700/60">
             ESC
           </kbd>
         </div>
@@ -87,7 +83,7 @@ export const SearchModal: React.FC<Props> = ({
           {filteredClients.length > 0 && (
             <div>
               <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-1.5 flex items-center gap-1.5">
-                <User className="w-3 h-3 text-amber-400" />
+                <User className="w-3 h-3 text-[#E5C365]" />
                 <span>Clientes Recentes</span>
               </div>
               <div className="space-y-1">
@@ -98,7 +94,7 @@ export const SearchModal: React.FC<Props> = ({
                       onSelectResult(`Cliente: ${client.name}`);
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between p-2 rounded-xl hover:bg-[#1a2130] text-left transition-colors"
+                    className="w-full flex items-center justify-between p-2 rounded-xl hover:bg-[#111722] text-left transition-colors"
                   >
                     <div>
                       <div className="text-xs font-semibold text-slate-200">
@@ -121,7 +117,7 @@ export const SearchModal: React.FC<Props> = ({
           {filteredServices.length > 0 && (
             <div>
               <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-1.5 flex items-center gap-1.5">
-                <Scissors className="w-3 h-3 text-amber-400" />
+                <Scissors className="w-4 h-3 text-[#E5C365]" />
                 <span>Serviços</span>
               </div>
               <div className="space-y-1">
@@ -132,12 +128,12 @@ export const SearchModal: React.FC<Props> = ({
                       onSelectResult(`Serviço: ${service.name}`);
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between p-2 rounded-xl hover:bg-[#1a2130] text-left transition-colors"
+                    className="w-full flex items-center justify-between p-2 rounded-xl hover:bg-[#111722] text-left transition-colors"
                   >
                     <span className="text-xs font-semibold text-slate-200">
                       {service.name}
                     </span>
-                    <span className="text-xs font-bold text-amber-300 font-mono">
+                    <span className="text-xs font-bold text-[#E5C365] font-mono">
                       R$ {(service.revenue / service.salesCount).toFixed(2).replace('.', ',')}
                     </span>
                   </button>
@@ -161,7 +157,7 @@ export const SearchModal: React.FC<Props> = ({
                       onSelectResult(`Produto: ${product.name}`);
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between p-2 rounded-xl hover:bg-[#1a2130] text-left transition-colors"
+                    className="w-full flex items-center justify-between p-2 rounded-xl hover:bg-[#111722] text-left transition-colors"
                   >
                     <span className="text-xs font-semibold text-slate-200">
                       {product.name}

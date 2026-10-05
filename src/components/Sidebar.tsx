@@ -24,6 +24,7 @@ interface Props {
   isOpenMobile?: boolean;
   onCloseMobile?: () => void;
   onOpenPlanModal?: () => void;
+  onToast?: (msg: string) => void;
 }
 
 export const Sidebar: React.FC<Props> = ({
@@ -32,6 +33,7 @@ export const Sidebar: React.FC<Props> = ({
   isOpenMobile = false,
   onCloseMobile,
   onOpenPlanModal,
+  onToast,
 }) => {
   const menuItems = [
     { id: 'inicio', label: 'Início', icon: Home },
@@ -46,9 +48,9 @@ export const Sidebar: React.FC<Props> = ({
   ];
 
   const content = (
-    <div className="flex flex-col h-full bg-[#0d1017] border-r border-[#1e2430] w-[260px] select-none text-slate-300">
-      {/* Top Brand */}
-      <div className="p-5 flex items-center justify-between border-b border-[#1a202c]">
+    <div className="flex flex-col h-full bg-[#070A0F] border-r border-[#121824] w-[260px] select-none text-slate-300">
+      {/* Top Brand Logo */}
+      <div className="p-5 flex items-center justify-between border-b border-[#121824]">
         <KupolaLogo />
         {isOpenMobile && onCloseMobile && (
           <button
@@ -75,13 +77,13 @@ export const Sidebar: React.FC<Props> = ({
               }}
               className={`w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 isActive
-                  ? 'bg-amber-500/10 text-[#f5b338] font-semibold border-l-2 border-[#e5a93c] shadow-[inset_0_1px_1px_rgba(245,179,56,0.1)]'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-[#141a24]'
+                  ? 'bg-[#D4AF37]/10 text-[#E5C365] font-semibold border-l-2 border-[#D4AF37] shadow-[inset_0_1px_1px_rgba(212,175,55,0.08)]'
+                  : 'text-slate-400 hover:text-slate-100 hover:bg-[#0D121B]'
               }`}
             >
               <Icon
                 className={`w-[18px] h-[18px] shrink-0 transition-colors ${
-                  isActive ? 'text-[#f5b338]' : 'text-slate-400'
+                  isActive ? 'text-[#E5C365]' : 'text-slate-400'
                 }`}
               />
               <span className="truncate">{item.label}</span>
@@ -92,15 +94,15 @@ export const Sidebar: React.FC<Props> = ({
 
       {/* Premium Plan Card */}
       <div className="px-3 pb-3">
-        <div className="p-3.5 rounded-xl bg-gradient-to-b from-[#181d28] to-[#121620] border border-amber-500/20 shadow-lg">
+        <div className="p-3.5 rounded-xl bg-gradient-to-b from-[#0D121B] to-[#080C12] border border-[#D4AF37]/20 shadow-lg">
           <div className="flex items-center gap-2.5 mb-1.5">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0">
-              <Crown className="w-4 h-4 text-amber-400" />
+            <div className="w-7 h-7 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
+              <Crown className="w-4 h-4 text-[#E5C365]" />
             </div>
             <div>
               <div className="text-xs font-bold text-slate-100">Plano Premium</div>
-              <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="flex items-center gap-1.5 text-[11px] text-[#20C997] font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#20C997] animate-pulse" />
                 Ativo
               </div>
             </div>
@@ -112,7 +114,7 @@ export const Sidebar: React.FC<Props> = ({
 
           <button
             onClick={onOpenPlanModal}
-            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 transition-all hover:text-amber-200"
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg text-xs font-semibold text-[#E5C365] bg-[#D4AF37]/10 border border-[#D4AF37]/30 hover:bg-[#D4AF37]/20 transition-all hover:text-white"
           >
             <span>Gerenciar plano</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -121,28 +123,28 @@ export const Sidebar: React.FC<Props> = ({
       </div>
 
       {/* Support Section */}
-      <div className="p-3 border-t border-[#1a202c] text-xs">
+      <div className="p-3 border-t border-[#121824] text-xs">
         <div className="px-3 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
           AJUDA E SUPORTE
         </div>
         <div className="space-y-0.5">
           <button
-            onClick={() => alert('Central de Ajuda: Acessando documentação e guias da Kupola...')}
-            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 hover:bg-[#141a24] transition-colors"
+            onClick={() => onToast?.('Central de Ajuda: Acessando documentação e guias da Kupola...')}
+            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 hover:bg-[#0D121B] transition-colors"
           >
             <HelpCircle className="w-4 h-4 text-slate-400" />
             <span>Central de Ajuda</span>
           </button>
           <button
-            onClick={() => alert('Abrindo canal oficial de suporte via WhatsApp...')}
-            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 hover:bg-[#141a24] transition-colors"
+            onClick={() => onToast?.('Abrindo canal oficial de suporte via WhatsApp...')}
+            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 hover:bg-[#0D121B] transition-colors"
           >
             <MessageCircle className="w-4 h-4 text-slate-400" />
             <span>Suporte via WhatsApp</span>
           </button>
           <button
-            onClick={() => alert('Obrigado pelo seu feedback! Nossa equipe está trabalhando para aprimorar o Kupola.')}
-            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 hover:bg-[#141a24] transition-colors"
+            onClick={() => onToast?.('Obrigado pelo seu feedback! Nossa equipe está trabalhando para aprimorar o Kupola.')}
+            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-slate-400 hover:text-slate-200 hover:bg-[#0D121B] transition-colors"
           >
             <MessageSquarePlus className="w-4 h-4 text-slate-400" />
             <span>Enviar Feedback</span>
@@ -163,7 +165,7 @@ export const Sidebar: React.FC<Props> = ({
       {isOpenMobile && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"
             onClick={onCloseMobile}
           />
           <div className="relative z-10 animate-in slide-in-from-left duration-200 shadow-2xl">

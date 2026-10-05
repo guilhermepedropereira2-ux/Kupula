@@ -17,6 +17,7 @@ import { PeriodFilter, MetricCardData, CurrentStatus } from './types/dashboard';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { HeroBanner } from './components/HeroBanner';
+import { PeriodFilterBar } from './components/PeriodFilterBar';
 import { MetricCards } from './components/MetricCards';
 import { RevenueChart } from './components/RevenueChart';
 import { TopLists } from './components/TopLists';
@@ -27,20 +28,18 @@ import { MobileNav } from './components/MobileNav';
 import { NewAppointmentModal } from './components/NewAppointmentModal';
 import { SearchModal } from './components/SearchModal';
 import { DetailModal } from './components/DetailModal';
-import { DeviceToggle, ViewMode } from './components/DeviceToggle';
-import { Check, Wifi, Battery, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Check, ArrowLeft } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('inicio');
   const [selectedMonth, setSelectedMonth] = useState<string>('Outubro 2026');
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodFilter>('este-mes');
-  const [viewMode, setViewMode] = useState<ViewMode>('responsive');
 
   // Operational State
   const [currentStatus, setCurrentStatus] = useState<CurrentStatus>(CURRENT_STATUS);
   const [metrics, setMetrics] = useState<MetricCardData[]>(METRIC_CARDS);
 
-  // Modals
+  // Modals & Feedback
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNewAppointmentOpen, setIsNewAppointmentOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -49,14 +48,14 @@ export default function App() {
   >(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Period filter changes update values dynamically
+  // Period filter changes update values dynamically without ever truncating titles
   const handlePeriodChange = (period: PeriodFilter) => {
     setSelectedPeriod(period);
     if (period === 'hoje') {
       setMetrics([
         {
           id: 'faturamento',
-          title: 'Faturamento Bruto',
+          title: 'Faturamento',
           value: 'R$ 720,00',
           trend: '+24% vs. ontem',
           trendPositive: true,
@@ -64,7 +63,7 @@ export default function App() {
         },
         {
           id: 'servicos',
-          title: 'Vendas de Serviços',
+          title: 'Serviços',
           value: 'R$ 580,00',
           trend: '+19% vs. ontem',
           trendPositive: true,
@@ -72,7 +71,7 @@ export default function App() {
         },
         {
           id: 'produtos',
-          title: 'Vendas de Produtos',
+          title: 'Produtos',
           value: 'R$ 140,00',
           trend: '+45% vs. ontem',
           trendPositive: true,
@@ -80,7 +79,7 @@ export default function App() {
         },
         {
           id: 'atendimentos',
-          title: 'Total de Atendimentos',
+          title: 'Atendimentos',
           value: '19',
           trend: '+12% vs. ontem',
           trendPositive: true,
@@ -91,7 +90,7 @@ export default function App() {
       setMetrics([
         {
           id: 'faturamento',
-          title: 'Faturamento Bruto',
+          title: 'Faturamento',
           value: 'R$ 2.450,00',
           trend: '+14% vs. semana anterior',
           trendPositive: true,
@@ -99,7 +98,7 @@ export default function App() {
         },
         {
           id: 'servicos',
-          title: 'Vendas de Serviços',
+          title: 'Serviços',
           value: 'R$ 1.980,00',
           trend: '+11% vs. semana anterior',
           trendPositive: true,
@@ -107,7 +106,7 @@ export default function App() {
         },
         {
           id: 'produtos',
-          title: 'Vendas de Produtos',
+          title: 'Produtos',
           value: 'R$ 470,00',
           trend: '+28% vs. semana anterior',
           trendPositive: true,
@@ -115,7 +114,7 @@ export default function App() {
         },
         {
           id: 'atendimentos',
-          title: 'Total de Atendimentos',
+          title: 'Atendimentos',
           value: '64',
           trend: '+16% vs. semana anterior',
           trendPositive: true,
@@ -156,17 +155,26 @@ export default function App() {
     );
   };
 
-  // Content of the main dashboard
+  // Content of the main dashboard obeying exact hierarchy:
+  // HERO -> PERÍODO -> MÉTRICAS -> EVOLUÇÃO + SITUAÇÃO AGORA -> SERVIÇOS + PRODUTOS -> FORMAS DE PAGAMENTO + HORÁRIOS
   const renderDashboardContent = () => (
-    <div className="space-y-4 sm:space-y-5 lg:space-y-6 pb-20 lg:pb-10">
-      {/* 1. Hero Greeting Banner */}
+    <div className="space-y-4 sm:space-y-5 lg:space-y-6 pb-24 lg:pb-8 max-w-[1600px] mx-auto w-full overflow-hidden">
+      {/* 1. HERO Banner with grand visual presence */}
       <HeroBanner
-        selectedPeriod={selectedPeriod}
-        onPeriodChange={handlePeriodChange}
         onOpenStoreProfile={() => setDetailModalType('store')}
       />
 
-      {/* 2. Key Metrics Grid (4 cards) */}
+      {/* 2. PERÍODO Filter Bar with isolated scroll and zero page overflow */}
+      <PeriodFilterBar
+        selectedPeriod={selectedPeriod}
+        onPeriodChange={handlePeriodChange}
+        selectedMonth={selectedMonth}
+        onOpenAdvancedFilters={() =>
+          showToast('Filtro de período: Visualizando dados de ' + selectedPeriod.toUpperCase())
+        }
+      />
+
+      {/* 3. MÉTRICAS: 2x2 grid on mobile (<md) | 4 cards in a row on tablet & desktop (>=md) */}
       <MetricCards
         metrics={metrics}
         onCardClick={(id) => {
@@ -175,14 +183,31 @@ export default function App() {
         }}
       />
 
-      {/* 3. Main Dashboard Section */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
-        {/* Left Column (Desktop ~66%): Evolução de Faturamento + Top Lists */}
-        <div className="xl:col-span-8 space-y-4 sm:space-y-5 lg:space-y-6">
-          {/* Revenue Evolution Chart */}
+      {/* 4. Progressive Responsive Grid Composition */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 sm:gap-5 w-full">
+        {/* Left Column (Desktop 8 cols / Tablet & Mobile full width) */}
+        <div className="xl:col-span-8 space-y-4 sm:space-y-5 min-w-0">
+          {/* Evolução de Faturamento */}
           <RevenueChart data={CHART_DAYS} />
 
-          {/* Top Services & Top Products */}
+          {/* Mobile & Tablet (< xl): Situação Agora right after chart */}
+          <div className="xl:hidden">
+            <OperationalStatus
+              status={currentStatus}
+              onOpenNewAppointment={() => setIsNewAppointmentOpen(true)}
+              onRowClick={(row) => {
+                if (row === 'barbeiros') {
+                  showToast('Barbeiros escalados hoje: Guilherme, Thiago e Matheus.');
+                } else if (row === 'fila') {
+                  showToast('Fila vazia no momento. Próximos horários disponíveis!');
+                } else if (row === 'atendimento') {
+                  showToast('1 cliente em atendimento na cadeira 01.');
+                }
+              }}
+            />
+          </div>
+
+          {/* Serviços Mais Vendidos | Produtos Mais Vendidos (side by side on tablet and desktop!) */}
           <TopLists
             services={TOP_SERVICES}
             products={TOP_PRODUCTS}
@@ -197,31 +222,36 @@ export default function App() {
           />
         </div>
 
-        {/* Right Column (Desktop ~33%): Situação Agora, Formas de Pagamento, Horários */}
-        <div className="xl:col-span-4 space-y-4 sm:space-y-5 lg:space-y-6">
-          {/* Situação Agora */}
-          <OperationalStatus
-            status={currentStatus}
-            onOpenNewAppointment={() => setIsNewAppointmentOpen(true)}
-            onRowClick={(row) => {
-              if (row === 'barbeiros') {
-                showToast('Barbeiros escalados hoje: Guilherme, Thiago e Matheus.');
-              } else if (row === 'fila') {
-                showToast('Fila vazia no momento. Próximos horários disponíveis!');
-              } else if (row === 'atendimento') {
-                showToast('1 cliente em atendimento na cadeira 01.');
-              }
-            }}
-          />
+        {/* Right Column (Desktop 4 cols / Tablet 2 cols / Mobile 1 col) */}
+        <div className="xl:col-span-4 space-y-4 sm:space-y-5 min-w-0">
+          {/* Desktop only (>= xl): Situação Agora aligned side-by-side with the chart */}
+          <div className="hidden xl:block">
+            <OperationalStatus
+              status={currentStatus}
+              onOpenNewAppointment={() => setIsNewAppointmentOpen(true)}
+              onRowClick={(row) => {
+                if (row === 'barbeiros') {
+                  showToast('Barbeiros escalados hoje: Guilherme, Thiago e Matheus.');
+                } else if (row === 'fila') {
+                  showToast('Fila vazia no momento. Próximos horários disponíveis!');
+                } else if (row === 'atendimento') {
+                  showToast('1 cliente em atendimento na cadeira 01.');
+                }
+              }}
+            />
+          </div>
 
-          {/* Formas de Pagamento */}
-          <PaymentBreakdown methods={PAYMENT_METHODS} />
-
-          {/* Horários de Maior Venda */}
-          <HourlySales
-            sales={HOURLY_SALES}
-            onViewAll={() => setDetailModalType('hourly')}
-          />
+          {/* Formas de Pagamento & Horários de Maior Venda:
+              - On Tablet (md to xl): side-by-side in 2 columns (md:grid-cols-2)
+              - On Desktop (xl+): stacked in the 4-column right bar (xl:grid-cols-1)
+              - On Mobile (< md): stacked (grid-cols-1) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4 sm:gap-5 w-full">
+            <PaymentBreakdown methods={PAYMENT_METHODS} />
+            <HourlySales
+              sales={HOURLY_SALES}
+              onViewAll={() => setDetailModalType('hourly')}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -234,11 +264,11 @@ export default function App() {
     }
 
     return (
-      <div className="p-6 rounded-2xl bg-[#121620] border border-[#1e2534] shadow-xl text-slate-200">
-        <div className="flex items-center gap-3 pb-4 mb-4 border-b border-[#1b2230]">
+      <div className="p-6 rounded-2xl bg-[#0D121B] border border-[#161e2c] shadow-xl text-slate-200 w-full overflow-hidden">
+        <div className="flex items-center gap-3 pb-4 mb-4 border-b border-[#161e2c]">
           <button
             onClick={() => setActiveTab('inicio')}
-            className="p-1.5 rounded-lg bg-[#18202d] text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-lg bg-[#0A0E15] text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
@@ -253,7 +283,7 @@ export default function App() {
         </div>
 
         <div className="py-8 text-center space-y-3">
-          <div className="w-12 h-12 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto text-lg font-bold">
+          <div className="w-12 h-12 rounded-full bg-[#D4AF37]/10 text-[#E5C365] flex items-center justify-center mx-auto text-lg font-bold">
             ✓
           </div>
           <h3 className="text-base font-semibold text-white">
@@ -264,7 +294,7 @@ export default function App() {
           </p>
           <button
             onClick={() => setActiveTab('inicio')}
-            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-colors"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-[#E5C365] hover:bg-[#D4AF37] transition-colors cursor-pointer"
           >
             Voltar para o Painel Principal
           </button>
@@ -274,102 +304,50 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0e14] text-slate-100 font-['Plus_Jakarta_Sans',sans-serif]">
-      {/* Device View Mode Switcher */}
-      <DeviceToggle viewMode={viewMode} onViewModeChange={setViewMode} />
-
+    <div className="min-h-screen bg-[#05070B] text-slate-100 font-['Plus_Jakarta_Sans',sans-serif] w-full overflow-x-hidden">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-[#141b27] border border-amber-500/50 rounded-xl shadow-2xl text-xs font-medium text-amber-200 animate-in fade-in slide-in-from-bottom-3 duration-200">
-          <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-[#0D121B] border border-[#D4AF37]/50 rounded-xl shadow-2xl text-xs font-medium text-[#E5C365] animate-in fade-in slide-in-from-bottom-3 duration-200">
+          <Check className="w-4 h-4 text-[#20C997] shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Case 1: Mobile Simulated iPhone View (Matches Screenshots 2 & 3) */}
-      {viewMode === 'mobile' ? (
-        <div className="min-h-screen bg-[#07090d] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-          {/* Realistic iPhone Bezel Container */}
-          <div className="relative w-full max-w-[420px] rounded-[52px] bg-[#0d1017] border-[10px] border-[#222733] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_0_2px_rgba(255,255,255,0.05)] overflow-hidden my-6">
-            {/* iOS Status Bar (9:41, Dynamic Island, Icons) */}
-            <div className="h-11 bg-[#0d1017] px-7 flex items-center justify-between text-xs text-white font-medium select-none z-30 sticky top-0">
-              <span className="font-semibold text-xs tracking-tight">9:41</span>
-              {/* Dynamic Island Pill */}
-              <div className="w-24 h-5 bg-black rounded-full mx-auto" />
-              <div className="flex items-center gap-1.5 text-slate-200">
-                <Wifi className="w-3.5 h-3.5" />
-                <Battery className="w-4 h-4" />
-              </div>
-            </div>
+      {/* Main Responsive Web Application */}
+      <div className="flex min-h-screen w-full overflow-x-hidden">
+        {/* Left Desktop Sidebar */}
+        <Sidebar
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          isOpenMobile={isMobileMenuOpen}
+          onCloseMobile={() => setIsMobileMenuOpen(false)}
+          onOpenPlanModal={() =>
+            showToast('Plano Premium Kupola: Acesso ilimitado, relatórios e suporte 24/7.')
+          }
+          onToast={showToast}
+        />
 
-            {/* Inner Mobile App Container */}
-            <div className="h-[840px] overflow-y-auto no-scrollbar flex flex-col justify-between">
-              <div>
-                {/* Mobile Header */}
-                <Header
-                  onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
-                  onOpenSearch={() => setIsSearchOpen(true)}
-                  selectedMonth={selectedMonth}
-                  onMonthChange={setSelectedMonth}
-                  onOpenNewAppointment={() => setIsNewAppointmentOpen(true)}
-                />
-
-                {/* Mobile Main Content */}
-                <main className="p-3.5">
-                  {renderTabContent()}
-                </main>
-              </div>
-
-              {/* Mobile Bottom Bar */}
-              <div className="sticky bottom-0 z-40 bg-[#0d1017]/95 backdrop-blur-md border-t border-[#1e2430]">
-                <MobileNav activeTab={activeTab} onTabChange={setActiveTab} />
-                {/* iPhone Home Indicator Line */}
-                <div className="w-32 h-1 bg-white/30 rounded-full mx-auto my-2" />
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        /* Case 2: Desktop / Responsive Layout (Matches Screenshot 1) */
-        <div
-          className={`flex min-h-screen ${
-            viewMode === 'desktop' ? 'w-[1440px] mx-auto shadow-2xl border-x border-[#1e2430]' : 'w-full'
-          }`}
-        >
-          {/* Left Desktop Sidebar */}
-          <Sidebar
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            isOpenMobile={isMobileMenuOpen}
-            onCloseMobile={() => setIsMobileMenuOpen(false)}
-            onOpenPlanModal={() =>
-              showToast('Plano Premium Kupola: Acesso ilimitado, relatórios e suporte 24/7.')
-            }
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col min-w-0 w-full overflow-x-hidden">
+          {/* Top Bar */}
+          <Header
+            onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+            onOpenSearch={() => setIsSearchOpen(true)}
+            selectedMonth={selectedMonth}
+            onMonthChange={setSelectedMonth}
+            onOpenNewAppointment={() => setIsNewAppointmentOpen(true)}
+            onToast={showToast}
           />
 
-          {/* Main Content Area */}
-          <div className="flex-1 flex flex-col min-w-0">
-            {/* Top Bar */}
-            <Header
-              onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
-              onOpenSearch={() => setIsSearchOpen(true)}
-              selectedMonth={selectedMonth}
-              onMonthChange={setSelectedMonth}
-              onOpenNewAppointment={() => setIsNewAppointmentOpen(true)}
-            />
+          {/* Dashboard Content */}
+          <main className="flex-1 p-3.5 sm:p-5 lg:p-7 overflow-y-auto overflow-x-hidden w-full">
+            {renderTabContent()}
+          </main>
 
-            {/* Dashboard Content */}
-            <main className="flex-1 p-4 sm:p-5 lg:p-7 overflow-y-auto">
-              {renderTabContent()}
-            </main>
-
-            {/* Bottom Mobile Navigation (Visible on narrow viewports when responsive) */}
-            {viewMode === 'responsive' && (
-              <MobileNav activeTab={activeTab} onTabChange={setActiveTab} />
-            )}
-          </div>
+          {/* Bottom Mobile Navigation (Visible on mobile viewports <lg) */}
+          <MobileNav activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
-      )}
+      </div>
 
       {/* Interactive Modals */}
       <NewAppointmentModal

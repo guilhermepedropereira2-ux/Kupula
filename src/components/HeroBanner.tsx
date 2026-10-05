@@ -1,137 +1,108 @@
 import React from 'react';
-import { MapPin, ArrowRight, Store, SlidersHorizontal } from 'lucide-react';
-import { BarbershopIllustration } from './BarbershopIllustration';
-import { PeriodFilter } from '../types/dashboard';
+import { MapPin, ArrowRight, Store } from 'lucide-react';
+import heroBarbershopImg from '../assets/images/hero-barbershop-v2.jpg';
 
 interface Props {
-  selectedPeriod: PeriodFilter;
-  onPeriodChange: (p: PeriodFilter) => void;
   onOpenStoreProfile: () => void;
 }
 
-export const HeroBanner: React.FC<Props> = ({
-  selectedPeriod,
-  onPeriodChange,
-  onOpenStoreProfile,
-}) => {
+export const HeroBanner: React.FC<Props> = ({ onOpenStoreProfile }) => {
+  // Determine dynamic greeting based on current local hour
+  const currentHour = new Date().getHours();
+  const greeting =
+    currentHour >= 5 && currentHour < 12
+      ? 'BOM DIA,'
+      : currentHour >= 12 && currentHour < 18
+      ? 'BOA TARDE,'
+      : 'BOA NOITE,';
+
   return (
-    <div className="relative rounded-2xl bg-[#0f131c] border border-[#202737] p-5 sm:p-6 lg:p-7 overflow-hidden shadow-2xl">
-      {/* Background Ambience Scene */}
-      <BarbershopIllustration />
+    <section className="relative rounded-3xl border border-[#222e44]/80 p-5 sm:p-9 lg:p-11 overflow-hidden shadow-2xl min-h-[235px] sm:min-h-[265px] lg:min-h-[295px] flex items-center bg-[#070A0F]">
+      {/* 1. REALISTIC PREMIUM BARBERSHOP PHOTOGRAPHY
+          Fills 100% of the Hero background.
+          - background-size: cover (object-cover)
+          - background-position: center right (object-right / object-[80%_center])
+          - High visibility: preserves original dark & warm gold tones
+          - Barber chair, counter, mirrors, and lighting remain clearly recognizable!
+      */}
+      <img
+        src={heroBarbershopImg}
+        alt="Barbearia Premium"
+        referrerPolicy="no-referrer"
+        className="absolute inset-0 w-full h-full object-cover object-[78%_center] sm:object-right select-none pointer-events-none transition-transform duration-700"
+      />
 
-      {/* Foreground Content */}
-      <div className="relative z-10 flex flex-col justify-between gap-6 min-h-[170px]">
-        {/* Top Section: Greeting on left, Store badge on right */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-          {/* Greeting text */}
-          <div className="max-w-xl">
-            <div className="text-[11px] sm:text-xs font-bold tracking-[0.2em] text-[#e5a93c] uppercase mb-1 drop-shadow-sm">
-              BOM DIA,
-            </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-white tracking-tight leading-none mb-2.5">
-              Guilherme!
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-300/90 font-medium">
-              <span className="hidden sm:inline">Aqui está o resumo da sua barbearia hoje, </span>
-              <span className="sm:hidden">Veja o resumo da sua barbearia hoje, </span>
-              4 de outubro de 2026.
-            </p>
-          </div>
+      {/* 2. SUAVE & TRANSLUCENT DIRECTIONAL OVERLAY
+          Stronger on the left (text area) and very light on the right (barbershop scene).
+          Does NOT make the image disappear or turn into a black void!
+      */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#05070B]/90 via-[#05070B]/50 to-[#05070B]/15 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#05070B]/60 via-transparent to-[#05070B]/20 pointer-events-none" />
 
-          {/* Store Badge Card */}
-          <div className="shrink-0">
-            {/* Desktop Store Box */}
-            <div className="hidden sm:flex flex-col items-end">
-              <div className="text-xs font-bold tracking-wider text-slate-200 uppercase mb-1">
-                BARBEARIA VINTAGE CLUB
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-3">
-                <MapPin className="w-3.5 h-3.5 text-amber-400" />
-                <span>Matriz</span>
-              </div>
-              <button
-                onClick={onOpenStoreProfile}
-                className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium text-amber-300 hover:text-amber-200 border border-amber-500/50 hover:border-amber-400 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 backdrop-blur-xs transition-all shadow-sm"
-              >
-                <span>Ver perfil da barbearia</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+      {/* Subtle warm amber ambient glow matching the barbershop lamps */}
+      <div className="absolute right-[8%] top-[10%] w-[320px] h-[220px] bg-[#D4AF37]/15 blur-[80px] rounded-full pointer-events-none" />
 
-            {/* Mobile Store Pill */}
-            <button
-              onClick={onOpenStoreProfile}
-              className="sm:hidden flex items-center justify-between w-full p-2.5 bg-[#141924]/80 border border-[#232d40] rounded-xl hover:border-amber-500/40 transition-colors"
-            >
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center">
-                  <Store className="w-4 h-4 text-amber-400" />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs font-bold text-slate-100">Vintage Club</div>
-                  <div className="text-[10px] text-slate-400">Matriz</div>
-                </div>
-              </div>
-              <ArrowRight className="w-4 h-4 text-slate-400" />
-            </button>
-          </div>
+      {/* 3. FOREGROUND EDITORIAL CONTENT */}
+      <div className="relative z-10 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        {/* Left Side: Greeting & Summary (Placed over the darker left region) */}
+        <div className="max-w-xl">
+          <span className="inline-block text-xs sm:text-[13px] font-bold tracking-[0.24em] text-[#F3CE72] uppercase mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] font-sans">
+            {greeting}
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-[48px] font-black text-white tracking-tight leading-none mb-3.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            Guilherme!
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed max-w-lg drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]">
+            <span className="hidden sm:inline">
+              Aqui está o resumo da sua barbearia hoje,{' '}
+            </span>
+            <span className="sm:hidden">
+              Veja o resumo da sua barbearia hoje,{' '}
+            </span>
+            4 de outubro de 2026.
+          </p>
         </div>
 
-        {/* Filter Tabs Bar (Seen prominently in Screenshot 2 / mobile, and adds interactive joy to desktop) */}
-        <div className="flex items-center justify-between gap-2 pt-2">
-          <div className="flex items-center gap-1 p-1 bg-[#0b0e14]/70 backdrop-blur-md rounded-xl border border-[#1e2534] max-w-md w-full sm:w-auto">
+        {/* Right Side: Store Info Badge */}
+        <div className="shrink-0 self-start sm:self-auto">
+          {/* Desktop Store Box */}
+          <div className="hidden sm:flex flex-col items-end">
+            <div className="text-xs font-bold tracking-wider text-slate-100 uppercase mb-1 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+              BARBEARIA VINTAGE CLUB
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-slate-200 mb-3.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]">
+              <MapPin className="w-3.5 h-3.5 text-[#E5C365]" />
+              <span>Matriz</span>
+            </div>
             <button
-              onClick={() => onPeriodChange('hoje')}
-              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                selectedPeriod === 'hoje'
-                  ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-              }`}
+              onClick={onOpenStoreProfile}
+              className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-[#E5C365] hover:text-white border border-[#D4AF37]/60 hover:border-[#E5C365] rounded-xl bg-[#070A0F]/85 hover:bg-[#D4AF37]/25 backdrop-blur-md transition-all shadow-xl group cursor-pointer"
             >
-              Hoje
-            </button>
-            <button
-              onClick={() => onPeriodChange('7dias')}
-              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                selectedPeriod === '7dias'
-                  ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-              }`}
-            >
-              7 Dias
-            </button>
-            <button
-              onClick={() => onPeriodChange('este-mes')}
-              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                selectedPeriod === 'este-mes'
-                  ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-              }`}
-            >
-              Este Mês
-            </button>
-            <button
-              onClick={() => onPeriodChange('3meses')}
-              className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
-                selectedPeriod === '3meses'
-                  ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-              }`}
-            >
-              3 Meses
+              <span>Ver perfil da barbearia</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
 
-          {/* Filter preferences toggle */}
+          {/* Mobile Store Pill */}
           <button
-            onClick={() => alert('Filtros avançados: Comparar filiais, barbeiros ou períodos personalizados.')}
-            className="hidden sm:flex items-center justify-center p-2 bg-[#0b0e14]/70 border border-[#1e2534] hover:border-amber-500/40 rounded-xl text-slate-400 hover:text-amber-400 transition-colors"
-            title="Filtros avançados"
+            onClick={onOpenStoreProfile}
+            className="sm:hidden flex items-center justify-between w-full p-3 bg-[#070A0F]/85 backdrop-blur-md border border-[#D4AF37]/30 rounded-xl hover:border-[#D4AF37]/60 transition-colors shadow-xl"
           >
-            <SlidersHorizontal className="w-4 h-4" />
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center shrink-0">
+                <Store className="w-4 h-4 text-[#F3CE72]" />
+              </div>
+              <div className="text-left">
+                <div className="text-xs font-bold text-white">
+                  Vintage Club
+                </div>
+                <div className="text-[10px] text-slate-300">Matriz</div>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4 text-slate-300 ml-2" />
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { X, Check, Scissors, User, CreditCard, Sparkles, Clock } from 'lucide-react';
-import { TOP_SERVICES, TOP_PRODUCTS } from '../data/mockData';
+import { X, Check, Scissors } from 'lucide-react';
+import { TOP_SERVICES } from '../data/mockData';
 
 interface Props {
   isOpen: boolean;
@@ -52,10 +52,10 @@ export const NewAppointmentModal: React.FC<Props> = ({
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-lg bg-[#121622] border border-[#263145] rounded-2xl shadow-2xl p-6 text-slate-100 animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex items-center justify-between pb-4 border-b border-[#1e2535]">
+      <div className="relative w-full max-w-lg bg-[#0D121B] border border-[#161e2c] rounded-2xl shadow-2xl p-6 text-slate-100 animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between pb-4 border-b border-[#161e2c]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <div className="w-8 h-8 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[#E5C365]">
               <Scissors className="w-4 h-4" />
             </div>
             <div>
@@ -86,7 +86,7 @@ export const NewAppointmentModal: React.FC<Props> = ({
                 placeholder="Ex: Lucas Mendes"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
-                className="w-full px-3 py-2 bg-[#0c0e14] border border-[#232c3d] rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-amber-400 transition-colors"
+                className="w-full px-3 py-2 bg-[#0A0E15] border border-[#1e2738] rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-[#E5C365] transition-colors"
               />
             </div>
             <div>
@@ -98,7 +98,7 @@ export const NewAppointmentModal: React.FC<Props> = ({
                 placeholder="(11) 98765-4321"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3 py-2 bg-[#0c0e14] border border-[#232c3d] rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-amber-400 transition-colors"
+                className="w-full px-3 py-2 bg-[#0A0E15] border border-[#1e2738] rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-[#E5C365] transition-colors"
               />
             </div>
           </div>
@@ -116,8 +116,8 @@ export const NewAppointmentModal: React.FC<Props> = ({
                   onClick={() => setSelectedBarber(b.name)}
                   className={`p-2.5 rounded-xl border text-left transition-all ${
                     selectedBarber === b.name
-                      ? 'bg-amber-500/15 border-amber-500 text-amber-200 shadow-sm'
-                      : 'bg-[#0c0e14] border-[#222b3b] text-slate-400 hover:border-slate-700'
+                      ? 'bg-[#D4AF37]/15 border-[#D4AF37] text-[#E5C365] shadow-xs'
+                      : 'bg-[#0A0E15] border-[#1e2738] text-slate-400 hover:border-slate-700'
                   }`}
                 >
                   <div className="text-xs font-bold text-slate-200">{b.name}</div>
@@ -135,7 +135,7 @@ export const NewAppointmentModal: React.FC<Props> = ({
             <select
               value={selectedService}
               onChange={(e) => setSelectedService(e.target.value)}
-              className="w-full px-3 py-2 bg-[#0c0e14] border border-[#232c3d] rounded-xl text-sm text-slate-100 focus:outline-hidden focus:border-amber-400 transition-colors"
+              className="w-full px-3 py-2 bg-[#0A0E15] border border-[#1e2738] rounded-xl text-sm text-slate-100 focus:outline-hidden focus:border-[#E5C365] transition-colors"
             >
               {TOP_SERVICES.map((s) => (
                 <option key={s.id} value={s.name}>
@@ -158,8 +158,8 @@ export const NewAppointmentModal: React.FC<Props> = ({
                   onClick={() => setSelectedPayment(pm)}
                   className={`py-2 px-1 text-center rounded-xl border text-xs font-semibold transition-all ${
                     selectedPayment === pm
-                      ? 'bg-amber-400 text-slate-950 border-amber-400'
-                      : 'bg-[#0c0e14] border-[#222b3b] text-slate-400 hover:text-slate-200'
+                      ? 'bg-[#E5C365] text-slate-950 border-[#E5C365]'
+                      : 'bg-[#0A0E15] border-[#1e2738] text-slate-400 hover:text-slate-200'
                   }`}
                 >
                   {pm}
@@ -178,12 +178,12 @@ export const NewAppointmentModal: React.FC<Props> = ({
               placeholder="Preferência de acabamento, toalha quente, etc."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2 bg-[#0c0e14] border border-[#232c3d] rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-amber-400 transition-colors"
+              className="w-full px-3 py-2 bg-[#0A0E15] border border-[#1e2738] rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-hidden focus:border-[#E5C365] transition-colors"
             />
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1e2535]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#161e2c]">
             <button
               type="button"
               onClick={onClose}
@@ -193,7 +193,7 @@ export const NewAppointmentModal: React.FC<Props> = ({
             </button>
             <button
               type="submit"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:brightness-105 transition-all shadow-md"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-[#D4AF37] to-[#E5C365] hover:brightness-105 transition-all shadow-md"
             >
               <Check className="w-4 h-4" />
               <span>Confirmar Atendimento</span>

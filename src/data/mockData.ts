@@ -11,7 +11,7 @@ import {
 export const METRIC_CARDS: MetricCardData[] = [
   {
     id: 'faturamento',
-    title: 'Faturamento Bruto',
+    title: 'Faturamento',
     value: 'R$ 4.850,00',
     trend: '+18% vs. mês anterior',
     trendPositive: true,
@@ -19,7 +19,7 @@ export const METRIC_CARDS: MetricCardData[] = [
   },
   {
     id: 'servicos',
-    title: 'Vendas de Serviços',
+    title: 'Serviços',
     value: 'R$ 3.920,00',
     trend: '+15% vs. mês anterior',
     trendPositive: true,
@@ -27,16 +27,16 @@ export const METRIC_CARDS: MetricCardData[] = [
   },
   {
     id: 'produtos',
-    title: 'Vendas de Produtos',
-    value: 'R$ 930,00',
-    trend: '+32% vs. mês anterior',
+    title: 'Produtos',
+    value: 'R$ 640,00',
+    trend: '+12% vs. mês anterior',
     trendPositive: true,
     type: 'currency',
   },
   {
     id: 'atendimentos',
-    title: 'Total de Atendimentos',
-    value: '128',
+    title: 'Atendimentos',
+    value: '142',
     trend: '+20% vs. mês anterior',
     trendPositive: true,
     type: 'number',

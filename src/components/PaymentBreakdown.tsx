@@ -17,13 +17,13 @@ export const PaymentBreakdown: React.FC<Props> = ({ methods }) => {
     switch (type) {
       case 'pix':
         return (
-          <div className="w-6 h-6 rounded-md bg-teal-500/15 text-teal-400 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 rounded-md bg-[#20C997]/15 text-[#20C997] flex items-center justify-center shrink-0">
             <QrCode className="w-3.5 h-3.5" />
           </div>
         );
       case 'credit':
         return (
-          <div className="w-6 h-6 rounded-md bg-amber-500/15 text-amber-400 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 rounded-md bg-[#D4AF37]/15 text-[#E5C365] flex items-center justify-center shrink-0">
             <CreditCard className="w-3.5 h-3.5" />
           </div>
         );
@@ -45,11 +45,11 @@ export const PaymentBreakdown: React.FC<Props> = ({ methods }) => {
   };
 
   return (
-    <div className="rounded-2xl bg-[#121620] border border-[#1e2534] p-4 sm:p-5 shadow-xl">
+    <div className="rounded-2xl bg-[#0D121B] border border-[#161e2c] p-4 sm:p-5 shadow-xl">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-[#1b2230]">
+      <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-[#161e2c]">
         <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
+          <div className="p-1.5 rounded-lg bg-[#D4AF37]/10 text-[#E5C365]">
             <Wallet className="w-4 h-4" />
           </div>
           <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
@@ -67,6 +67,15 @@ export const PaymentBreakdown: React.FC<Props> = ({ methods }) => {
       {/* Methods breakdown list */}
       <div className="space-y-3">
         {methods.map((method) => {
+          const barColor =
+            method.iconType === 'pix'
+              ? '#20C997'
+              : method.iconType === 'credit'
+              ? '#E5C365'
+              : method.iconType === 'debit'
+              ? '#38bdf8'
+              : '#a855f7';
+
           return (
             <div
               key={method.name}
@@ -82,11 +91,11 @@ export const PaymentBreakdown: React.FC<Props> = ({ methods }) => {
 
               {/* Progress Bar & Percentage */}
               <div className="flex-1 flex items-center gap-2 max-w-[130px] sm:max-w-[160px]">
-                <div className="flex-1 h-2 rounded-full bg-[#18202d] overflow-hidden">
+                <div className="flex-1 h-2 rounded-full bg-[#161e2b] overflow-hidden">
                   <div
                     style={{
                       width: `${method.percentage}%`,
-                      backgroundColor: method.color,
+                      backgroundColor: barColor,
                     }}
                     className="h-full rounded-full transition-all duration-500"
                   />

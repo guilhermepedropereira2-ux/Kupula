@@ -1,4 +1,5 @@
 import React from 'react';
+import kupolaSymbolGold from '../assets/images/kupola-symbol-gold.png';
 
 interface Props {
   compact?: boolean;
@@ -12,43 +13,43 @@ export const KupolaLogo: React.FC<Props> = ({
   subtext = 'GESTÃO PARA BARBEARIAS',
 }) => {
   return (
-    <div className={`flex items-center gap-3 select-none ${className}`}>
-      {/* Monogram emblem 'K' in gold */}
-      <div className="relative w-9 h-9 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#2a2214] via-[#1a160f] to-[#120f09] border border-amber-500/40 shadow-[0_0_15px_rgba(217,119,6,0.25)] shrink-0">
-        <svg viewBox="0 0 32 32" fill="none" className="w-6 h-6">
-          <defs>
-            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#fef08a" />
-              <stop offset="40%" stopColor="#eab308" />
-              <stop offset="100%" stopColor="#b45309" />
-            </linearGradient>
-          </defs>
-          {/* Vertical left stem */}
-          <path
-            d="M8 6H12V26H8V6Z"
-            fill="url(#goldGrad)"
-          />
-          {/* Upper diagonal arm */}
-          <path
-            d="M23 7L13 17L15.5 19.5L25.5 9.5V7H23Z"
-            fill="url(#goldGrad)"
-          />
-          {/* Lower diagonal arm */}
-          <path
-            d="M13.5 15.5L24 26H26.5V23.5L16 13L13.5 15.5Z"
-            fill="url(#goldGrad)"
-          />
-        </svg>
+    <div
+      className={`flex items-center gap-2.5 sm:gap-3 select-none shrink-0 whitespace-nowrap ${className}`}
+    >
+      {/* 
+        SÍMBOLO OFICIAL KUPOLA: K DOURADO + NAVALHA (ASSET TRANSPARENTE DE ALTA VISIBILIDADE)
+        - Novo asset PNG com fundo 100% transparente
+        - Dourado metálico 24K radiante e luminoso (sem tons escuros ou amarronzados)
+        - Ocupa aproximadamente 70-72% da área do quadrado
+        - Centralização perfeita e margens uniformes
+        - Detalhes nítidos: K chanfrado + navalha com fio de corte e rebites
+      */}
+      <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center bg-[#070A0F] border border-[#E5C365]/40 shadow-[0_0_15px_rgba(229,195,101,0.18)] shrink-0 overflow-hidden">
+        {/* Sutil iluminação âmbar de apoio para destacar os contornos metálicos */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.14)_0%,transparent_75%)] pointer-events-none" />
+
+        {/* Novo Asset PNG Transparente - K Dourado + Navalha */}
+        <img
+          src={kupolaSymbolGold}
+          alt="KUPOLA - K Dourado e Navalha"
+          className="w-[72%] h-[72%] object-contain relative z-10 select-none pointer-events-none filter drop-shadow-[0_0_6px_rgba(255,215,0,0.25)] brightness-105"
+          loading="eager"
+        />
       </div>
 
       {!compact && (
-        <div className="flex flex-col">
-          <span className="font-['Cinzel',serif] tracking-[0.16em] text-lg font-bold bg-gradient-to-r from-[#fae8b2] via-[#e6b553] to-[#c78d2b] bg-clip-text text-transparent leading-none">
+        /* Wordmark container - strictly always full, never truncated, never wrapped, never clipped */
+        <div className="flex flex-col shrink-0 min-w-max leading-none">
+          {/* Tipografia KUPOLA original */}
+          <span className="font-['Outfit',sans-serif] tracking-[0.22em] text-[18px] sm:text-[20px] lg:text-[22px] font-black uppercase bg-gradient-to-r from-[#FFFDF0] via-[#F3CE72] to-[#D4AF37] bg-clip-text text-transparent whitespace-nowrap shrink-0 leading-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
             KUPOLA
           </span>
-          <span className="text-[8px] font-semibold tracking-[0.24em] text-amber-200/50 mt-1 uppercase leading-none font-sans">
-            {subtext}
-          </span>
+          {/* Subtítulo institucional */}
+          {subtext && (
+            <span className="text-[7.5px] sm:text-[8.5px] font-bold tracking-[0.24em] text-amber-200/70 mt-1 uppercase whitespace-nowrap shrink-0 hidden sm:block">
+              {subtext}
+            </span>
+          )}
         </div>
       )}
     </div>

@@ -22,14 +22,14 @@ export const TopLists: React.FC<Props> = ({
   onSelectProduct,
 }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 lg:gap-5">
       {/* Serviços mais vendidos */}
-      <div className="rounded-2xl bg-[#121620] border border-[#1e2534] p-4 sm:p-5 shadow-xl flex flex-col justify-between">
+      <div className="rounded-2xl bg-[#0D121B] border border-[#161e2c] p-4 sm:p-5 shadow-xl flex flex-col justify-between">
         <div>
           {/* Card Header */}
-          <div className="flex items-center justify-between pb-3.5 mb-2 border-b border-[#1b2230]">
+          <div className="flex items-center justify-between pb-3 mb-2 border-b border-[#161e2c]">
             <div className="flex items-center gap-2.5">
-              <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
+              <div className="p-1.5 rounded-lg bg-[#D4AF37]/10 text-[#E5C365]">
                 <Scissors className="w-4 h-4" />
               </div>
               <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
@@ -38,7 +38,7 @@ export const TopLists: React.FC<Props> = ({
             </div>
             <button
               onClick={onViewAllServices}
-              className="flex items-center gap-1 text-xs text-slate-400 hover:text-amber-400 transition-colors"
+              className="flex items-center gap-1 text-xs text-slate-400 hover:text-[#E5C365] transition-colors"
             >
               <span>Ver todos</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -46,26 +46,26 @@ export const TopLists: React.FC<Props> = ({
           </div>
 
           {/* List items */}
-          <div className="space-y-1 sm:space-y-1.5">
+          <div className="space-y-1">
             {services.map((item) => (
               <div
                 key={item.id}
                 onClick={() => onSelectService(item)}
-                className="group flex items-center justify-between p-2 rounded-xl hover:bg-[#171d2b] transition-all cursor-pointer"
+                className="group flex items-center justify-between p-2 rounded-xl hover:bg-[#111722] transition-all cursor-pointer"
               >
                 {/* Left: Rank Badge, Image & Info */}
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   {/* Number Badge */}
-                  <div className="w-5 h-5 rounded-full bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-[11px] font-bold text-amber-400 shrink-0">
+                  <div className="w-5 h-5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[11px] font-bold text-[#E5C365] shrink-0">
                     {item.rank}
                   </div>
 
                   {/* Thumbnail Avatar */}
-                  <ServiceThumbnail type={item.imageType} size={40} />
+                  <ServiceThumbnail type={item.imageType} size={38} />
 
                   {/* Service info */}
                   <div className="min-w-0">
-                    <h4 className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
+                    <h4 className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-[#E5C365] transition-colors truncate">
                       {item.name}
                     </h4>
                     <span className="text-[11px] text-slate-400">
@@ -88,10 +88,10 @@ export const TopLists: React.FC<Props> = ({
       </div>
 
       {/* Produtos mais vendidos */}
-      <div className="rounded-2xl bg-[#121620] border border-[#1e2534] p-4 sm:p-5 shadow-xl flex flex-col justify-between">
+      <div className="rounded-2xl bg-[#0D121B] border border-[#161e2c] p-4 sm:p-5 shadow-xl flex flex-col justify-between">
         <div>
           {/* Card Header */}
-          <div className="flex items-center justify-between pb-3.5 mb-2 border-b border-[#1b2230]">
+          <div className="flex items-center justify-between pb-3 mb-2 border-b border-[#161e2c]">
             <div className="flex items-center gap-2.5">
               <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400">
                 <Package className="w-4 h-4" />
@@ -102,7 +102,7 @@ export const TopLists: React.FC<Props> = ({
             </div>
             <button
               onClick={onViewAllProducts}
-              className="flex items-center gap-1 text-xs text-slate-400 hover:text-amber-400 transition-colors"
+              className="flex items-center gap-1 text-xs text-slate-400 hover:text-[#E5C365] transition-colors"
             >
               <span>Ver todos</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -110,26 +110,26 @@ export const TopLists: React.FC<Props> = ({
           </div>
 
           {/* List items */}
-          <div className="space-y-1 sm:space-y-1.5">
+          <div className="space-y-1">
             {products.map((item) => (
               <div
                 key={item.id}
                 onClick={() => onSelectProduct(item)}
-                className="group flex items-center justify-between p-2 rounded-xl hover:bg-[#171d2b] transition-all cursor-pointer"
+                className="group flex items-center justify-between p-2 rounded-xl hover:bg-[#111722] transition-all cursor-pointer"
               >
                 {/* Left: Rank Badge, Image & Info */}
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   {/* Number Badge */}
-                  <div className="w-5 h-5 rounded-full bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-[11px] font-bold text-amber-400 shrink-0">
+                  <div className="w-5 h-5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center text-[11px] font-bold text-[#E5C365] shrink-0">
                     {item.rank}
                   </div>
 
                   {/* Product Thumbnail */}
-                  <ProductThumbnail type={item.imageType} size={40} />
+                  <ProductThumbnail type={item.imageType} size={38} />
 
                   {/* Product info */}
                   <div className="min-w-0">
-                    <h4 className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-amber-300 transition-colors truncate">
+                    <h4 className="text-xs sm:text-sm font-semibold text-slate-100 group-hover:text-[#E5C365] transition-colors truncate">
                       {item.name}
                     </h4>
                     <span className="text-[11px] text-slate-400">
